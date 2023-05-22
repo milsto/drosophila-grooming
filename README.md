@@ -1,4 +1,22 @@
-# Python Annotator for VideoS
+Adaptation of Python Annotator for VideoS repository for the Drosophila Grooming labeling and analysis.
+
+# Instructions
+
+1. Open the folder containing the code in terminal.
+2. Install requriments with the following command:
+```
+pip install -r requriments.txt
+```
+3. Open the folder in Visual Studio Code
+4. Run the cropper.py (by opening the file in Visual Studio Code and pres F5). Do the cropping
+5. Run the pasv.py and do the labeling.
+
+---
+---
+
+# PAVS Repo Readme
+
+## Python Annotator for VideoS
 PAVS - A simple video labeling tool developed in PyQt5 for managing the dataset of the ASDetect Project
 
 Annotate videos in common formats(mp4, avi, mkv, wav, mp3)
@@ -9,7 +27,7 @@ Refer help.txt before proceeding with the usage of the application.
 
 ![example](https://raw.githubusercontent.com/kevalvc/Python-Annotator-for-VideoS/master/Examples/example.PNG)
 
-## Installation
+### Installation
  * Dependencies
 
    * python-pyqt5
@@ -22,13 +40,13 @@ Refer help.txt before proceeding with the usage of the application.
    * sys
    * python-numpy
 
-## Usage
+### Usage
    * Running the annotator
  ```
      python pavs.py
 ```
 
-## Shortcuts
+### Shortcuts
 - Load video: L
 - Previous frame: Left Arrow
 - Next frame: Right Arrow
