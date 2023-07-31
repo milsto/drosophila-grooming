@@ -7,9 +7,10 @@ Adaptation of Python Annotator for VideoS repository for the Drosophila Grooming
 ```
 pip install -r requriments.txt
 ```
-3. Open the folder in Visual Studio Code
-4. Run the cropper.py (by opening the file in Visual Studio Code and pres F5). Do the cropping
-5. Run the pasv.py and do the labeling.
+3. In folder *Required software for Windows* run *K-Lite_Codec_Pack_1532_Basic.exe* (installation will open, in most cases you can just click Next all the way)
+4. Open the folder in Visual Studio Code
+5. Run the cropper.py (by opening the file in Visual Studio Code and pres F5). Do the cropping
+6. Run the pasv.py and do the labeling.
 
 ---
 ---
