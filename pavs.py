@@ -330,7 +330,7 @@ class Window(QMainWindow):
 
     def insertBaseRow(self):
         self.tableWidget.setColumnCount(4) #, Start Time, End Time, TimeStamp
-        self.tableWidget.setRowCount(50)
+        self.tableWidget.setRowCount(500)
         self.rowNo = 1
         self.colNo = 0
         self.tableWidget.setItem(0, 0, QTableWidgetItem("Start Time"))
