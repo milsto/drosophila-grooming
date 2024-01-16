@@ -11,6 +11,7 @@ pip install -r requriments.txt
 4. Open the folder in Visual Studio Code
 5. Run the cropper.py (by opening the file in Visual Studio Code and pres F5). Do the cropping
 6. Run the pasv.py and do the labeling.
+7. After the data is labeled, run the data_statistics.py to statistically analyze the data.
 
 ---
 ---
