@@ -7,7 +7,7 @@ import subprocess
 import csv
 
 # Set the path to ffmpeg.exe
-FFMPEG_PATH = r"ffmpeg"
+FFMPEG_PATH = r"C:\Users\milos\Desktop\src\ffmpeg.exe"
 
 def select_bounding_boxes(video_path):
     cap = cv2.VideoCapture(video_path)

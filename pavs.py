@@ -97,14 +97,11 @@ class Window(QMainWindow):
         self.endTime.setPlaceholderText("Select End Time")
 
         self.iLabel = QComboBox(self)
-        self.iLabel.addItem("1. Eye Contact")
-        self.iLabel.addItem("2. Pointing")
-        self.iLabel.addItem("3. Response to Names")
-        self.iLabel.addItem("4. Following Pointing")
-        self.iLabel.addItem("5. Babbling")
-        self.iLabel.addItem("6. Question-Answering")
-        self.iLabel.addItem("7. Showing")
-        self.iLabel.addItem("8. Following Instructions")
+        self.iLabel.addItem("1. Front legs")
+        self.iLabel.addItem("2. Front legs + Head")
+        self.iLabel.addItem("3. Mid legs")
+        self.iLabel.addItem("4. Back legs")
+        self.iLabel.addItem("5. Back legs + Wings")
         self.iLabel.activated[str].connect(self.style_choice)
 
         # self.iLabel = QLineEdit()
@@ -330,7 +327,7 @@ class Window(QMainWindow):
 
     def insertBaseRow(self):
         self.tableWidget.setColumnCount(4) #, Start Time, End Time, TimeStamp
-        self.tableWidget.setRowCount(500)
+        self.tableWidget.setRowCount(50)
         self.rowNo = 1
         self.colNo = 0
         self.tableWidget.setItem(0, 0, QTableWidgetItem("Start Time"))
