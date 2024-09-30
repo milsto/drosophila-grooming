@@ -8,6 +8,7 @@
 3.3) Use shift+left and shift+right to seek forward and backward by 10 seconds in the video
 3.4) Use L for opening new video
 3.5) Use C to clear the entire data table
+3.6) Use A to add label to the table
 
 4.1) Need to press play button after opening the video to run the actual video
 4.2) The '->' is used to enter data to the next line of the table

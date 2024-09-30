@@ -9,6 +9,8 @@ import csv
 import sys
 import numpy as np
 
+VIDEO_FPS = 60
+
 audio_extensions = [".wav", ".mp3"]
 video_extensions = [".avi", ".mp4", ".mkv"]
 
@@ -25,6 +27,9 @@ class Window(QMainWindow):
         # self.setWindowState = "Qt.WindowMaximized"
         iconName = "home.png"
         self.InitWindow()
+
+        # One frame duration in milliseconds
+        self.ms_step = int(round(1000.0 / VIDEO_FPS))
 
     def InitWindow(self):
         self.setWindowTitle(self.title)
@@ -64,13 +69,13 @@ class Window(QMainWindow):
         self.playButton.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
         self.playButton.clicked.connect(self.play)
 
-        self.lbl = QLabel('00:00:00')
-        self.lbl.setFixedWidth(60)
+        self.lbl = QLabel('00:00:00.000')
+        self.lbl.setFixedWidth(80)
         self.lbl.setUpdatesEnabled(True)
         # self.lbl.setStyleSheet(stylesheet(self))
 
-        self.elbl = QLabel('00:00:00')
-        self.elbl.setFixedWidth(60)
+        self.elbl = QLabel('00:00:00.000')
+        self.elbl.setFixedWidth(80)
         self.elbl.setUpdatesEnabled(True)
         # self.elbl.setStyleSheet(stylesheet(self))
 
@@ -178,6 +183,8 @@ class Window(QMainWindow):
         self.shortcut.activated.connect(self.openFile)
         self.shortcut = QShortcut(QKeySequence("C"), self)
         self.shortcut.activated.connect(self.clearTable)
+        self.shortcut = QShortcut(QKeySequence("A"), self)
+        self.shortcut.activated.connect(self.next)
 
         self.shortcut = QShortcut(QKeySequence(Qt.Key_Right), self)
         self.shortcut.activated.connect(self.forwardSlider)
@@ -274,9 +281,11 @@ class Window(QMainWindow):
         print("Clearing")
 
     def export(self):
+        home_path = QDir.homePath()
         if self.fileNameExist:
+            home_path = os.path.dirname(self.fileNameExist)
             self.fName = ((self.fileNameExist.rsplit('/', 1)[1]).rsplit('.',1))[0]
-        path, _ = QFileDialog.getSaveFileName(self, 'Save File', QDir.homePath() + "/"+self.fName+".csv", "CSV Files(*.csv *.txt)")
+        path, _ = QFileDialog.getSaveFileName(self, 'Save File', home_path + "/"+self.fName+".csv", "CSV Files(*.csv *.txt)")
         if path:
             with open(path, 'w') as stream:
                 print("saving", path)
@@ -327,7 +336,7 @@ class Window(QMainWindow):
 
     def insertBaseRow(self):
         self.tableWidget.setColumnCount(4) #, Start Time, End Time, TimeStamp
-        self.tableWidget.setRowCount(50)
+        self.tableWidget.setRowCount(500)
         self.rowNo = 1
         self.colNo = 0
         self.tableWidget.setItem(0, 0, QTableWidgetItem("Start Time"))
@@ -369,7 +378,7 @@ class Window(QMainWindow):
         self.positionSlider.setRange(0, duration)
         mtime = QTime(0,0,0,0)
         mtime = mtime.addMSecs(self.mediaPlayer.duration())
-        self.elbl.setText(mtime.toString())
+        self.elbl.setText(mtime.toString("hh:mm:ss.zzz"))
 
     def setPosition(self, position):
         self.mediaPlayer.setPosition(position)
@@ -380,16 +389,16 @@ class Window(QMainWindow):
         self.errorLabel.setStyleSheet('color: red')
 
     def forwardSlider(self):
-        self.mediaPlayer.setPosition(self.mediaPlayer.position() + 1*60)
+        self.mediaPlayer.setPosition(self.mediaPlayer.position() + 1*self.ms_step)
 
     def forwardSlider10(self):
-            self.mediaPlayer.setPosition(self.mediaPlayer.position() + 1000*60)
+            self.mediaPlayer.setPosition(self.mediaPlayer.position() + 1000*self.ms_step)
 
     def backSlider(self):
-        self.mediaPlayer.setPosition(self.mediaPlayer.position() - 1*60)
+        self.mediaPlayer.setPosition(self.mediaPlayer.position() - 1*self.ms_step)
 
     def backSlider10(self):
-        self.mediaPlayer.setPosition(self.mediaPlayer.position() - 1000*60)
+        self.mediaPlayer.setPosition(self.mediaPlayer.position() - 1000*self.ms_step)
 
     def volumeUp(self):
         self.mediaPlayer.setVolume(self.mediaPlayer.volume() + 10)
@@ -416,7 +425,7 @@ class Window(QMainWindow):
         self.lbl.clear()
         mtime = QTime(0,0,0,0)
         self.time = mtime.addMSecs(self.mediaPlayer.position())
-        self.lbl.setText(self.time.toString())
+        self.lbl.setText(self.time.toString("hh:mm:ss.zzz"))
 
     def dropEvent(self, event):
         f = str(event.mimeData().urls()[0].toLocalFile())
