@@ -67,7 +67,14 @@ for label in labels_in_first_and_last_5_min:
     })
 
 df_results = pd.DataFrame(results)
-df_results.to_excel("results_fX_F.xlsx")
+results_path = os.path.join(os.getcwd(),"results_fX_F.xlsx")
+df_results.to_excel(results_path)
 
-raw_sum_duratioin_first_5_df.to_excel("raw_sum_duratioin_first_5_fX_F.xlsx")
-raw_sum_duratioin_last_5_df.to_excel("raw_sum_duratioin_last_fX_F.xlsx")
+first_5_path = os.path.join(os.getcwd(),"raw_sum_duratioin_first_5_fX_F.xlsx")
+last_5_path = os.path.join(os.getcwd(),"raw_sum_duratioin_last_5_fX_F.xlsx")
+raw_sum_duratioin_first_5_df.to_excel(first_5_path)
+raw_sum_duratioin_last_5_df.to_excel(last_5_path)
+
+print("Results saved to:", results_path)
+print("First 5 minutes raw sum duration results saved to:", first_5_path)
+print("Last 5 minutes raw sum duration results saved to:", last_5_path)
