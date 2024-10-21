@@ -3,7 +3,7 @@ import glob
 import os
 
 
-folder_with_data = r"C:\Users\mistojan\Downloads\sara\fX F input folder\fX F"
+folder_with_data = r"C:\Users\milos_lkzm8yy\OneDrive\Desktop\100 micM_M"
 
 first_5_minutes_df = pd.DataFrame()
 last_5_minutes_df = pd.DataFrame()
@@ -37,6 +37,8 @@ results = []
 
 raw_sum_duratioin_first_5_df = pd.DataFrame()
 raw_sum_duratioin_last_5_df = pd.DataFrame()
+raw_count_first_5_df = pd.DataFrame()
+raw_count_last_5_df = pd.DataFrame()
 
 labels_in_first_and_last_5_min = set(first_5_minutes_df["Label Name"].unique()).union(set(last_5_minutes_df["Label Name"].unique()))
 
@@ -49,7 +51,11 @@ for label in labels_in_first_and_last_5_min:
                                               pd.DataFrame(label_data_first_5_minutes.groupby("fly_index")["Duration"].sum()).rename(columns={"Duration": label})], axis=1)
     raw_sum_duratioin_last_5_df = pd.concat([raw_sum_duratioin_last_5_df, 
                                             pd.DataFrame(label_data_last_5_minutes.groupby("fly_index")["Duration"].sum()).rename(columns={"Duration": label})], axis=1)
-    
+
+    raw_count_first_5_df = pd.concat([raw_count_first_5_df, 
+                                              pd.DataFrame(label_data_first_5_minutes.groupby("fly_index")["Label Name"].count()).rename(columns={"Label Name": label})], axis=1)
+    raw_count_last_5_df = pd.concat([raw_count_last_5_df, 
+                                            pd.DataFrame(label_data_last_5_minutes.groupby("fly_index")["Label Name"].count()).rename(columns={"Label Name": label})], axis=1)
 
     results.append({
         'Label': label,
@@ -67,14 +73,22 @@ for label in labels_in_first_and_last_5_min:
     })
 
 df_results = pd.DataFrame(results)
-results_path = os.path.join(os.getcwd(),"results_fX_F.xlsx")
-df_results.to_excel(results_path)
+results_path = os.path.join(os.getcwd(),"results_fX100_M.xlsx")
+df_results.fillna(0).to_excel(results_path)
 
-first_5_path = os.path.join(os.getcwd(),"raw_sum_duratioin_first_5_fX_F.xlsx")
-last_5_path = os.path.join(os.getcwd(),"raw_sum_duratioin_last_5_fX_F.xlsx")
-raw_sum_duratioin_first_5_df.to_excel(first_5_path)
-raw_sum_duratioin_last_5_df.to_excel(last_5_path)
+first_5_path = os.path.join(os.getcwd(),"raw_sum_duratioin_first_5_fX100_M.xlsx")
+last_5_path = os.path.join(os.getcwd(),"raw_sum_duratioin_last_5_fX100_M.xlsx")
+count_first_5_path = os.path.join(os.getcwd(),"raw_count_first_5_fX100_M.xlsx")
+count_last_5_path = os.path.join(os.getcwd(),"raw_count_last_5_fX100_M.xlsx")
+
+raw_sum_duratioin_first_5_df.fillna(0).to_excel(first_5_path)
+raw_sum_duratioin_last_5_df.fillna(0).to_excel(last_5_path)
+raw_count_first_5_df.fillna(0).to_excel(count_first_5_path)
+raw_count_last_5_df.fillna(0).to_excel(count_last_5_path)
 
 print("Results saved to:", results_path)
 print("First 5 minutes raw sum duration results saved to:", first_5_path)
 print("Last 5 minutes raw sum duration results saved to:", last_5_path)
+print("First 5 minutes raw count results saved to:", count_first_5_path)
+print("Last 5 minutes raw count results saved to:", count_last_5_path)
+
